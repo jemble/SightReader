@@ -34,7 +34,6 @@ public class SetSongDetailsActivity extends Activity {
 	
 	private boolean checkFormValues(){
 		String nameVal = getInputValues(editName);
-		Log.i("JEM","naeVal: "+nameVal);
 		if(nameVal.equalsIgnoreCase("")){
 			return false;
 		}
@@ -57,10 +56,8 @@ public class SetSongDetailsActivity extends Activity {
 	 */
 	public void btnCameraClicked(View view){
 		if(checkFormValues()){
-			Log.i("JEM","vals OK");
 		}
 		else{
-			Log.i("JEM","not OK");
 		}
 	}
 	
