@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:textColor="#FFFFFF"
         android:inputType="text"
+        android:text="@string/my_song_name"
         android:textSize="24sp"/>
     
     <TextView
@@ -43,7 +44,8 @@
         android:layout_width="96sp"
         android:layout_height="wrap_content"
         android:textColor="#FFFFFF"
-        android:inputType="text"
+        android:inputType="number"
+        android:text="@string/one_hundred_twenty"
         android:textSize="24sp"/>
     
     <Button 

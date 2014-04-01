@@ -11,7 +11,7 @@ public class Song implements Parcelable {
 	String imageFileName;
 	String midiFileName;
 	
-	public void Song(String name, int tempo){
+	public Song(String name, int tempo){
 		this.name = name;
 		this.tempo = tempo;
 	}

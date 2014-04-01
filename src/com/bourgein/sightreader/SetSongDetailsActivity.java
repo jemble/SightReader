@@ -2,18 +2,22 @@ package com.bourgein.sightreader;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SetSongDetailsActivity extends Activity {
 
-	Button btnCamera;
-	EditText editName;
-	EditText editTempo;
+	private Button btnCamera;
+	private EditText editName;
+	private EditText editTempo;
+	
+	public static final String SONG_PARCEL = "SONG_PARCEL";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +60,13 @@ public class SetSongDetailsActivity extends Activity {
 	 */
 	public void btnCameraClicked(View view){
 		if(checkFormValues()){
+			Song song = new Song(getInputValues(editName), Integer.parseInt(getInputValues(editTempo)));
+			Intent capturePicIntent = new Intent(getApplicationContext(),CapturePictureActivity.class);
+			capturePicIntent.putExtra(SONG_PARCEL, song);
+			startActivity(capturePicIntent);
 		}
 		else{
+			Toast.makeText(getApplicationContext(), "please enter all details correctly", Toast.LENGTH_LONG).show();
 		}
 	}
 	
