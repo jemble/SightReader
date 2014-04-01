@@ -5,8 +5,11 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
@@ -173,6 +176,21 @@ public class FullPhotoPreviewActivity extends Activity {
 			}
 			cropOverlay.isDrawingCropBox = false;
 		}
+	}
+	
+	public void uploadPhoto(View view){
+		if(isDataConnection()){
+			Toast.makeText(getApplicationContext(), "has connection", Toast.LENGTH_LONG).show();
+		}
+		else{
+			Toast.makeText(getApplicationContext(), "no connection", Toast.LENGTH_LONG).show();
+		}
+	}
+	
+	private boolean isDataConnection(){
+		ConnectivityManager cm = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+		return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
 	}
 	
 	private void writeImageToFile(Bitmap bmp) throws IOException{
