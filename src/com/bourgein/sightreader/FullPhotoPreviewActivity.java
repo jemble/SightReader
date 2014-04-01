@@ -1,5 +1,10 @@
 package com.bourgein.sightreader;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -11,6 +16,7 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class FullPhotoPreviewActivity extends Activity {
 
@@ -96,8 +102,6 @@ public class FullPhotoPreviewActivity extends Activity {
 					case(MotionEvent.ACTION_UP):
 						isInBottomRight = false;
 						isInTopLeft = false;
-//						x2 = event.getX();
-//						y2 = event.getY();
 					}
 				}
 				return true;
@@ -158,8 +162,24 @@ public class FullPhotoPreviewActivity extends Activity {
 		int intY1 = (int)(cropOverlay.y1*scalarY);
 		int intX2 = (int)(cropOverlay.x2*scalarX);
 		int intY2 = (int)(cropOverlay.y2*scalarY);
-		croppedBmp = Bitmap.createBitmap(origBmp,intX1,intY1,(intX2-intX1),(intY2-intY1));
-		cropOverlay.setImageBitmap(croppedBmp);
+		if(cropOverlay.x1 < cropOverlay.x2 && cropOverlay.y1 < cropOverlay.y2){
+			croppedBmp = Bitmap.createBitmap(origBmp,intX1,intY1,(intX2-intX1),(intY2-intY1));
+			cropOverlay.setImageBitmap(croppedBmp);
+			try{
+				writeImageToFile(croppedBmp);
+			}
+			catch(IOException e){
+				Toast.makeText(getApplicationContext(), "problem saving cropped file to sd card",Toast.LENGTH_LONG).show();
+			}
+			cropOverlay.isDrawingCropBox = false;
+		}
+	}
+	
+	private void writeImageToFile(Bitmap bmp) throws IOException{
+		File pictureFile = new File(song.getImageFileName());
+		FileOutputStream fos = new FileOutputStream(pictureFile);
+		bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+		fos.close();
 	}
 	
 	@Override
