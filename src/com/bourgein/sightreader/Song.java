@@ -46,6 +46,8 @@ public class Song implements Parcelable {
 
 	public void setImageFileName(String imageFileName) {
 		this.imageFileName = imageFileName;
+		createFileName();
+		createMidiFileName();
 	}
 
 	public String getMidiFileName() {
@@ -54,6 +56,17 @@ public class Song implements Parcelable {
 
 	public void setMidiFileName(String midiFileName) {
 		this.midiFileName = midiFileName;
+	}
+	
+	private void createFileName(){
+		String[] splitOne = imageFileName.split("srf");
+		String[] splitTwo = splitOne[1].split(".jpg");
+		fileName = "srf"+splitTwo[0];
+	}
+	
+	private void createMidiFileName(){
+		String[] fileSplit = imageFileName.split(".jpg");
+		this.midiFileName = fileSplit[0]+".midi"; 
 	}
 
 	/********************PARCELABLE SPECIFIC*************************/
