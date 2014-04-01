@@ -6,11 +6,27 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/gradient_background"
     tools:context=".HomeActivity" >
 
-    <TextView
+    <ImageView 
+        android:id="@+id/img_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
-
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo" />
+    
+    <Button
+        android:id="@+id/btn_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/img_logo"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/button_start_layout"
+        android:textSize="40sp"
+        android:textColor="#FFFFFF"
+        android:onClick="btnStartClicked"
+        android:text="@string/start" />
+    
 </RelativeLayout>
