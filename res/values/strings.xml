@@ -9,5 +9,7 @@
     <string name="tempo">tempo</string>
     <string name="one_hundred_twenty">120</string>
     <string name="my_song_name">my song name</string>
+    <string name="title_activity_capture_picture">Take Picture</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>
