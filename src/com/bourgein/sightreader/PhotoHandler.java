@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
 import android.os.Environment;
@@ -29,7 +30,7 @@ public class PhotoHandler implements PictureCallback {
 		}
 		
 		try {
-			pictureFile = File.createTempFile("sr", ".jpg", pictureFileDir);
+			pictureFile = File.createTempFile("srf", ".jpg", pictureFileDir);
 			song.setImageFileName(pictureFile.getAbsolutePath());
 		} catch (IOException e) {
 			return;
@@ -43,7 +44,9 @@ public class PhotoHandler implements PictureCallback {
 		catch(Exception ex){
 			return;
 		}
-		
+		Intent prevIntent = new Intent(context,FullPhotoPreviewActivity.class);
+		prevIntent.putExtra(SetSongDetailsActivity.SONG_PARCEL, song);
+		context.startActivity(prevIntent);
 	}
 	
 	private File getExternalDir(){
