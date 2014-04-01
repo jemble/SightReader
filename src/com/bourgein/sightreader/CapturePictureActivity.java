@@ -94,7 +94,7 @@ public class CapturePictureActivity extends Activity implements SurfaceHolder.Ca
 	
     
     public void surfaceClicked(View view){
-    	Log.i("JEM","surface clicked");
+    	cam.takePicture(null,null,new PhotoHandler(this,song));
     }
     
     @Override
