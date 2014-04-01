@@ -15,20 +15,24 @@ import java.net.UnknownHostException;
 
 import android.app.Activity;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
 
 public class ServerHelper {
 	
+	public static final String LOADING_FROM_SERVER = "LOADING_FROM_SERVER"; 
 	private static final String SERVER_ADD = "54.229.110.104";
 	private static final int SERVER_PORT = 1238;
 	private static final int STATUS_OK = 100;
 	private static final int STATUS_AUDIVERIS_PROBLEM = 101;
 	private static final int STATUS_XML_PROBLEM = 102;
 	private static final int STATUS_GENERAL_PROBLEM = 103;
+	
 	
 	private int curStatus = STATUS_OK;
 	
@@ -37,15 +41,16 @@ public class ServerHelper {
 	private Activity listeningActivity;
 	private Song song;
 	
-	public ServerHelper(Context context){
+	public ServerHelper(Context context, Song song){
 		this.context = context;
+		this.song = song;
 	}
 	
 	public void startComms(){
-		
+		new CommsTask().execute();
 	}
 	
-	private class CommsTask extends AsyncTask<String, Integer, Integer>{
+	private class CommsTask extends AsyncTask<Void, Integer, Integer>{
 
 		private Socket connection;
 		private ObjectOutputStream objOutputStream;
@@ -61,7 +66,7 @@ public class ServerHelper {
 			progressDialog.show();
 		}
 		@Override
-		protected Integer doInBackground(String... params) {
+		protected Integer doInBackground(Void... params) {
 			//make the socket
 			try {
 				connection = new Socket(InetAddress.getByName(SERVER_ADD),SERVER_PORT);	
@@ -144,7 +149,20 @@ public class ServerHelper {
 			if(progressDialog != null){
 				progressDialog.dismiss();
 			}
-			NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context).setSmallIcon(R.drawable.ic_launcher).setContentTitle("finished").setContentText("conversion finished");
+			
+			Intent midiIntent = new Intent(context,MidiPlayerActivity.class);
+			midiIntent.putExtra(LOADING_FROM_SERVER, false);
+			midiIntent.putExtra(SetSongDetailsActivity.SONG_PARCEL, song);
+			
+			PendingIntent midiPendingIntent = PendingIntent.getActivity(context, 0, midiIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+			
+			NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
+			.setSmallIcon(R.drawable.ic_launcher)
+			.setContentTitle("finished")
+			.setContentText("conversion finished")
+			.setContentIntent(midiPendingIntent)
+			.setAutoCancel(true);
+			
 			NotificationManager mNotifyMgr = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
 			mNotifyMgr.notify(0, mBuilder.build());
 		}

@@ -10,6 +10,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
@@ -180,7 +181,10 @@ public class FullPhotoPreviewActivity extends Activity {
 	
 	public void uploadPhoto(View view){
 		if(isDataConnection()){
-			Toast.makeText(getApplicationContext(), "has connection", Toast.LENGTH_LONG).show();
+			Intent midiIntent = new Intent(getApplicationContext(), MidiPlayerActivity.class);
+			midiIntent.putExtra(SetSongDetailsActivity.SONG_PARCEL, song);
+			midiIntent.putExtra(ServerHelper.LOADING_FROM_SERVER, true);
+			startActivity(midiIntent);
 		}
 		else{
 			Toast.makeText(getApplicationContext(), "no connection", Toast.LENGTH_LONG).show();

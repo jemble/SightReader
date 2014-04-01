@@ -80,13 +80,15 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int activity_capture_picture=0x7f030000;
         public static final int activity_full_photo_preview=0x7f030001;
         public static final int activity_home=0x7f030002;
-        public static final int activity_set_song_details=0x7f030003;
+        public static final int activity_midi_player=0x7f030003;
+        public static final int activity_set_song_details=0x7f030004;
     }
     public static final class menu {
         public static final int capture_picture=0x7f080000;
         public static final int full_photo_preview=0x7f080001;
         public static final int home=0x7f080002;
-        public static final int set_song_details=0x7f080003;
+        public static final int midi_player=0x7f080003;
+        public static final int set_song_details=0x7f080004;
     }
     public static final class string {
         public static final int action_settings=0x7f060001;
@@ -101,6 +103,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int tempo=0x7f060005;
         public static final int title_activity_capture_picture=0x7f060008;
         public static final int title_activity_full_photo_preview=0x7f06000a;
+        public static final int title_activity_midi_player=0x7f06000d;
         public static final int title_activity_set_song_details=0x7f060003;
     }
     public static final class style {
