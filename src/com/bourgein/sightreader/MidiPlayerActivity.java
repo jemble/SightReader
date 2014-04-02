@@ -28,14 +28,17 @@ public class MidiPlayerActivity extends Activity implements ResultsListener, See
 	private Song song;
 	private ProgressDialog progressDialog;
 	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_midi_player);
+		
 		Bundle bundle = getIntent().getExtras();
 		song = bundle.getParcelable(SetSongDetailsActivity.SONG_PARCEL);
 		boolean isLoadingFromServer = bundle.getBoolean(ServerHelper.LOADING_FROM_SERVER);
-
+		int curStatus = bundle.getInt(ServerHelper.CUR_STATUS);
+		
 		btnStart = (Button)findViewById(R.id.midi_btn_play);
 		btnStop = (Button)findViewById(R.id.midi_btn_stop);
 		txtViewName = (TextView)findViewById(R.id.midi_text_name);
@@ -47,7 +50,7 @@ public class MidiPlayerActivity extends Activity implements ResultsListener, See
 			ServerHelper helper = new ServerHelper(this,song,this);
 			helper.startComms();
 		}
-//		onServerResponse(song);
+		onServerResponse(song, curStatus);
 	}
 	
 	@Override
@@ -60,7 +63,6 @@ public class MidiPlayerActivity extends Activity implements ResultsListener, See
 	}
 	
 	public boolean checkServerStatus(int status){
-		Log.i("JEM","status in midiplayer: "+status);
 		switch(status){
 		case ServerHelper.STATUS_AUDIVERIS_PROBLEM:
 			return false;
@@ -68,8 +70,10 @@ public class MidiPlayerActivity extends Activity implements ResultsListener, See
 			return false;
 		case ServerHelper.STATUS_XML_PROBLEM:
 			return false;
+		case ServerHelper.STATUS_OK:
+			return true;
 		default:
-			return true;	
+			return false;	
 		}
 	}
 	
@@ -159,6 +163,7 @@ public class MidiPlayerActivity extends Activity implements ResultsListener, See
 
 	@Override
 	public void onServerResponse(Song song, int status) {
+		Log.i("JEM","curstatus: "+status);
 		if(progressDialog != null){
 			progressDialog.dismiss();
 		}
@@ -168,7 +173,8 @@ public class MidiPlayerActivity extends Activity implements ResultsListener, See
 			setUpMedia();
 		}
 		else{
-			Toast.makeText(getApplicationContext(), "problem with the conversion. error code: "+status, Toast.LENGTH_LONG).show();
+			ConversionErrorDialog diog = new ConversionErrorDialog();
+			diog.show(getFragmentManager(),"error");
 		}
 		
 	}

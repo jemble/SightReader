@@ -27,6 +27,7 @@ import android.widget.Toast;
 public class ServerHelper {
 	
 	public static final String LOADING_FROM_SERVER = "LOADING_FROM_SERVER"; 
+	public static final String CUR_STATUS = "CUR STATUS";
 	private static final String SERVER_ADD = "54.229.110.104";
 	private static final int SERVER_PORT = 1238;
 	public static final int STATUS_OK = 100;
@@ -149,7 +150,7 @@ public class ServerHelper {
 			Intent midiIntent = new Intent(context,MidiPlayerActivity.class);
 			midiIntent.putExtra(LOADING_FROM_SERVER, false);
 			midiIntent.putExtra(SetSongDetailsActivity.SONG_PARCEL, song);
-			
+			midiIntent.putExtra(CUR_STATUS, curStatus);
 			PendingIntent midiPendingIntent = PendingIntent.getActivity(context, 0, midiIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 			
 			NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
