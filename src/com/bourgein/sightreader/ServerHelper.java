@@ -21,6 +21,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 import android.widget.Toast;
 
 public class ServerHelper {
@@ -28,20 +29,20 @@ public class ServerHelper {
 	public static final String LOADING_FROM_SERVER = "LOADING_FROM_SERVER"; 
 	private static final String SERVER_ADD = "54.229.110.104";
 	private static final int SERVER_PORT = 1238;
-	private static final int STATUS_OK = 100;
-	private static final int STATUS_AUDIVERIS_PROBLEM = 101;
-	private static final int STATUS_XML_PROBLEM = 102;
-	private static final int STATUS_GENERAL_PROBLEM = 103;
+	public static final int STATUS_OK = 100;
+	public static final int STATUS_AUDIVERIS_PROBLEM = 101;
+	public static final int STATUS_XML_PROBLEM = 102;
+	public static final int STATUS_GENERAL_PROBLEM = 103;
 	
 	
 	private int curStatus = STATUS_OK;
 	
 	private Context context;
-	private ProgressDialog progressDialog;
-	private Activity listeningActivity;
+	private ResultsListener listeningActivity;
 	private Song song;
 	
-	public ServerHelper(Context context, Song song){
+	public ServerHelper(Context context, Song song, ResultsListener resListener){
+		this.listeningActivity = resListener;
 		this.context = context;
 		this.song = song;
 	}
@@ -59,11 +60,7 @@ public class ServerHelper {
 		
 		@Override
 		protected void onPreExecute(){
-			progressDialog= new ProgressDialog(context);
-			progressDialog.setCancelable(false);
-			progressDialog.setMessage("Getting midi ...");
-			progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-			progressDialog.show();
+			listeningActivity.onServerStart();
 		}
 		@Override
 		protected Integer doInBackground(Void... params) {
@@ -71,25 +68,27 @@ public class ServerHelper {
 			try {
 				connection = new Socket(InetAddress.getByName(SERVER_ADD),SERVER_PORT);	
 			} catch (UnknownHostException e) {
-				Toast.makeText(context, "can't find server", Toast.LENGTH_LONG).show();
+				curStatus = STATUS_GENERAL_PROBLEM;
+				return curStatus;
 			} catch (IOException e) {
-				Toast.makeText(context, "error communicating with server", Toast.LENGTH_LONG).show();
+				curStatus = STATUS_GENERAL_PROBLEM;
+				return curStatus;
 			}
 			
 			// create outputstream
 			try {
 				objOutputStream = new ObjectOutputStream(connection.getOutputStream());
 			} catch (IOException e) {
-				Toast.makeText(context, "can't create a connection to the server", Toast.LENGTH_LONG).show();
+				curStatus = STATUS_GENERAL_PROBLEM;;
 			}
 			
 			//create inputstream
 			try {
 				objInputStream = new ObjectInputStream(connection.getInputStream());
 			} catch (StreamCorruptedException e) {
-				Toast.makeText(context, "connection lost with server", Toast.LENGTH_LONG).show();
+				curStatus = STATUS_GENERAL_PROBLEM;
 			} catch (IOException e) {
-				Toast.makeText(context, "error communicating with server", Toast.LENGTH_LONG).show();
+				curStatus = STATUS_GENERAL_PROBLEM;
 			}
 			
 			//send teh filename
@@ -97,7 +96,7 @@ public class ServerHelper {
 				sendMessage(objOutputStream, song.getFileName());
 			}
 			catch(IOException ex){
-				Toast.makeText(context, "couldn't send filename to server", Toast.LENGTH_LONG).show();
+				curStatus = STATUS_GENERAL_PROBLEM;
 			}
 			
 			//send the tempo
@@ -105,7 +104,7 @@ public class ServerHelper {
 				sendMessage(objOutputStream,Integer.toString(song.getTempo()));
 			}
 			catch(IOException ex){
-				Toast.makeText(context, "couldn't send tempo to server", Toast.LENGTH_LONG).show();
+				curStatus = STATUS_GENERAL_PROBLEM;
 			}
 			
 			//get the current status
@@ -146,9 +145,6 @@ public class ServerHelper {
 		
 		@Override
 		protected void onPostExecute(Integer result) {
-			if(progressDialog != null){
-				progressDialog.dismiss();
-			}
 			
 			Intent midiIntent = new Intent(context,MidiPlayerActivity.class);
 			midiIntent.putExtra(LOADING_FROM_SERVER, false);
@@ -165,6 +161,8 @@ public class ServerHelper {
 			
 			NotificationManager mNotifyMgr = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
 			mNotifyMgr.notify(0, mBuilder.build());
+			
+			listeningActivity.onServerResponse(song,result);
 		}
 	}
 

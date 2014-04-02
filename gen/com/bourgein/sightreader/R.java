@@ -46,21 +46,22 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int button_music_layout=0x7f02000b;
         public static final int button_play=0x7f02000c;
         public static final int button_play_down=0x7f02000d;
-        public static final int button_start=0x7f02000e;
-        public static final int button_start_down=0x7f02000f;
-        public static final int button_start_layout=0x7f020010;
-        public static final int button_stop=0x7f020011;
-        public static final int button_stop_down=0x7f020012;
-        public static final int button_stop_layout=0x7f020013;
-        public static final int button_trash=0x7f020014;
-        public static final int button_trash_down=0x7f020015;
-        public static final int button_trash_layout=0x7f020016;
-        public static final int gradient_background=0x7f020017;
-        public static final int ic_launcher=0x7f020018;
-        public static final int logo=0x7f020019;
+        public static final int button_play_layout=0x7f02000e;
+        public static final int button_start=0x7f02000f;
+        public static final int button_start_down=0x7f020010;
+        public static final int button_start_layout=0x7f020011;
+        public static final int button_stop=0x7f020012;
+        public static final int button_stop_down=0x7f020013;
+        public static final int button_stop_layout=0x7f020014;
+        public static final int button_trash=0x7f020015;
+        public static final int button_trash_down=0x7f020016;
+        public static final int button_trash_layout=0x7f020017;
+        public static final int gradient_background=0x7f020018;
+        public static final int ic_launcher=0x7f020019;
+        public static final int logo=0x7f02001a;
     }
     public static final class id {
-        public static final int action_settings=0x7f09000e;
+        public static final int action_settings=0x7f090012;
         public static final int btn_start=0x7f090008;
         public static final int capPic_surface_preview=0x7f090000;
         public static final int fullphoto_btn_crop_green=0x7f090005;
@@ -70,11 +71,15 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int fullphoto_btn_trash=0x7f090002;
         public static final int fullphoto_crop_photo_preview=0x7f090001;
         public static final int img_logo=0x7f090007;
-        public static final int setSongs_btn_camera=0x7f09000d;
-        public static final int setSongs_editTxt_name=0x7f09000a;
-        public static final int setSongs_editTxt_tempo=0x7f09000c;
-        public static final int setSongs_txtView_name=0x7f090009;
-        public static final int setSongs_txtView_tempo=0x7f09000b;
+        public static final int midi_btn_play=0x7f09000b;
+        public static final int midi_btn_stop=0x7f09000c;
+        public static final int midi_seek_bar=0x7f09000a;
+        public static final int midi_text_name=0x7f090009;
+        public static final int setSongs_btn_camera=0x7f090011;
+        public static final int setSongs_editTxt_name=0x7f09000e;
+        public static final int setSongs_editTxt_tempo=0x7f090010;
+        public static final int setSongs_txtView_name=0x7f09000d;
+        public static final int setSongs_txtView_tempo=0x7f09000f;
     }
     public static final class layout {
         public static final int activity_capture_picture=0x7f030000;
