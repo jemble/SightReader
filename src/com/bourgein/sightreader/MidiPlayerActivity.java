@@ -50,7 +50,6 @@ public class MidiPlayerActivity extends Activity implements ResultsListener, See
 			ServerHelper helper = new ServerHelper(this,song,this);
 			helper.startComms();
 		}
-		onServerResponse(song, curStatus);
 	}
 	
 	@Override

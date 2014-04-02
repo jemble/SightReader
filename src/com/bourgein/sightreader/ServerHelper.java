@@ -35,7 +35,6 @@ public class ServerHelper {
 	public static final int STATUS_XML_PROBLEM = 102;
 	public static final int STATUS_GENERAL_PROBLEM = 103;
 	
-	
 	private int curStatus = STATUS_OK;
 	
 	private Context context;
@@ -147,6 +146,11 @@ public class ServerHelper {
 		@Override
 		protected void onPostExecute(Integer result) {
 			
+			String msg = "conversion done!";
+			if(result!= STATUS_OK){
+				msg = "conversion error";
+			}
+			
 			Intent midiIntent = new Intent(context,MidiPlayerActivity.class);
 			midiIntent.putExtra(LOADING_FROM_SERVER, false);
 			midiIntent.putExtra(SetSongDetailsActivity.SONG_PARCEL, song);
@@ -156,7 +160,7 @@ public class ServerHelper {
 			NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
 			.setSmallIcon(R.drawable.ic_launcher)
 			.setContentTitle("finished")
-			.setContentText("conversion finished")
+			.setContentText(msg)
 			.setContentIntent(midiPendingIntent)
 			.setAutoCancel(true);
 			

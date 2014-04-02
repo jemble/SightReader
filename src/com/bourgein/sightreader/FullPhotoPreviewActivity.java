@@ -179,6 +179,14 @@ public class FullPhotoPreviewActivity extends Activity {
 		}
 	}
 	
+	public void deletePhoto(View view){
+		File file = new File(song.getImageFileName());
+		file.delete();
+		Intent camera_intent = new Intent(getApplicationContext(),CapturePictureActivity.class);
+		camera_intent.putExtra(SetSongDetailsActivity.SONG_PARCEL, song);
+		startActivity(camera_intent);
+	}
+	
 	public void uploadPhoto(View view){
 		if(isDataConnection()){
 			Intent midiIntent = new Intent(getApplicationContext(), MidiPlayerActivity.class);
