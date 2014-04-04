@@ -32,6 +32,7 @@
         android:onClick="btnPlay"
         android:background="@null"
         android:src="@drawable/button_play_layout"/>
+     
      <ImageButton 
         android:id="@+id/midi_btn_stop"
         android:layout_height="wrap_content"
@@ -40,7 +41,6 @@
         android:layout_alignParentLeft="true"
         android:onClick="btnStop"
         android:background="@null"
-        android:src="@drawable/button_stop_layout"/>
-   
+        android:src="@drawable/button_stop_layout"/>   
 
 </RelativeLayout>
