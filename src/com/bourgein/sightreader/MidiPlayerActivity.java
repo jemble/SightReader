@@ -16,7 +16,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MidiPlayerActivity extends Activity implements ResultsListener, SeekBar.OnSeekBarChangeListener {
+public class MidiPlayerActivity extends Activity implements SeekBar.OnSeekBarChangeListener {
 
 	private TextView txtViewName;
 	private Button btnStart;
@@ -34,10 +34,17 @@ public class MidiPlayerActivity extends Activity implements ResultsListener, See
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_midi_player);
 		
+		init();
+		
+	}
+	
+	public void init(){
 		Bundle bundle = getIntent().getExtras();
 		song = bundle.getParcelable(SetSongDetailsActivity.SONG_PARCEL);
 		boolean isLoadingFromServer = bundle.getBoolean(ServerHelper.LOADING_FROM_SERVER);
 		int curStatus = bundle.getInt(ServerHelper.CUR_STATUS);
+		boolean isLoadingFromNotification = bundle.getBoolean(ServerHelper.LOADING_FROM_NOTICATION);
+		Log.i("JEM","current status in init: "+curStatus);
 		
 		btnStart = (Button)findViewById(R.id.midi_btn_play);
 		btnStop = (Button)findViewById(R.id.midi_btn_stop);
@@ -45,20 +52,14 @@ public class MidiPlayerActivity extends Activity implements ResultsListener, See
 		seekBar = (SeekBar)findViewById(R.id.midi_seek_bar);
 		
 		mHandler = new Handler();
-		
-		if(isLoadingFromServer){
-			ServerHelper helper = new ServerHelper(this,song,this);
-			helper.startComms();
+		if(checkServerStatus(curStatus)){
+			txtViewName.setText(song.getName());
+			setUpMedia();
 		}
-	}
-	
-	@Override
-	public void onServerStart(){
-		progressDialog= new ProgressDialog(this);
-		progressDialog.setCancelable(false);
-		progressDialog.setMessage("Getting midi ...");
-		progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-		progressDialog.show();
+		else{
+			ConversionErrorDialog diog = new ConversionErrorDialog();
+			diog.show(getFragmentManager(),"error");
+		}
 	}
 	
 	public boolean checkServerStatus(int status){
@@ -161,21 +162,8 @@ public class MidiPlayerActivity extends Activity implements ResultsListener, See
 	}
 
 	@Override
-	public void onServerResponse(Song song, int status) {
-		Log.i("JEM","curstatus: "+status);
-		if(progressDialog != null){
-			progressDialog.dismiss();
-		}
-		if(checkServerStatus(status)){
-			txtViewName.setText(song.getName());
-			this.song = song;
-			setUpMedia();
-		}
-		else{
-			ConversionErrorDialog diog = new ConversionErrorDialog();
-			diog.show(getFragmentManager(),"error");
-		}
-		
+	protected void onResume(){
+		super.onResume();
+		init();
 	}
-
 }

@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -22,7 +23,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-public class FullPhotoPreviewActivity extends Activity {
+public class FullPhotoPreviewActivity extends Activity implements ResultsListener{
 
 	private CropOverlayView cropOverlay;
 	private Song song;
@@ -32,6 +33,7 @@ public class FullPhotoPreviewActivity extends Activity {
 	private boolean isInTopLeft = false;
 	private boolean isInBottomRight = false;
 	Bitmap origBmp,croppedBmp;
+	private ProgressDialog progressDialog;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +79,7 @@ public class FullPhotoPreviewActivity extends Activity {
 						}
 						
 						if(cropOverlay.bottomRightHandle.contains(x1,y1)){
-							Log.i("JEM","in bottom right");
+//							Log.i("JEM","in bottom right");
 							isInTopLeft = false;
 							isInBottomRight = true;
 						}
@@ -86,12 +88,12 @@ public class FullPhotoPreviewActivity extends Activity {
 						x2 = event.getX();
 						y2 = event.getY();
 						if(isInTopLeft){
-							Log.i("JEM","moving in top left");
+//							Log.i("JEM","moving in top left");
 							cropOverlay.x1 = x2;
 							cropOverlay.y1 = y2;
 						}
 						else if(isInBottomRight){
-							Log.i("JEM","moving in bottom right");
+//							Log.i("JEM","moving in bottom right");
 							cropOverlay.x2 = x2;
 							cropOverlay.y2 = y2;
 						}
@@ -189,10 +191,12 @@ public class FullPhotoPreviewActivity extends Activity {
 	
 	public void uploadPhoto(View view){
 		if(isDataConnection()){
-			Intent midiIntent = new Intent(getApplicationContext(), MidiPlayerActivity.class);
-			midiIntent.putExtra(SetSongDetailsActivity.SONG_PARCEL, song);
-			midiIntent.putExtra(ServerHelper.LOADING_FROM_SERVER, true);
-			startActivity(midiIntent);
+//			Intent midiIntent = new Intent(getApplicationContext(), MidiPlayerActivity.class);
+//			midiIntent.putExtra(SetSongDetailsActivity.SONG_PARCEL, song);
+//			midiIntent.putExtra(ServerHelper.LOADING_FROM_SERVER, true);
+//			startActivity(midiIntent);
+			ServerHelper helper = new ServerHelper(this,song,this);
+			helper.startComms();
 		}
 		else{
 			Toast.makeText(getApplicationContext(), "no connection", Toast.LENGTH_LONG).show();
@@ -217,6 +221,27 @@ public class FullPhotoPreviewActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.full_photo_preview, menu);
 		return true;
+	}
+
+	@Override
+	public void onServerStart() {
+			progressDialog= new ProgressDialog(this);
+			progressDialog.setCancelable(false);
+			progressDialog.setMessage("Getting midi ...");
+			progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+			progressDialog.show();
+	}
+
+	@Override
+	public void onServerResponse(Song song, int status) {
+		if(progressDialog != null){
+			progressDialog.dismiss();
+		}
+		Intent midiIntent = new Intent(getApplicationContext(),MidiPlayerActivity.class);
+		midiIntent.putExtra(SetSongDetailsActivity.SONG_PARCEL, song);
+		midiIntent.putExtra(ServerHelper.CUR_STATUS, status);
+		startActivity(midiIntent);
+		
 	}
 
 }

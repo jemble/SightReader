@@ -29,7 +29,6 @@
         android:layout_width="wrap_content"
         android:layout_below="@+id/midi_seek_bar"
         android:layout_alignParentRight="true"
-        android:onClick="btnPlay"
         android:background="@drawable/button_play_layout"/>
      <Button 
         android:id="@+id/midi_btn_stop"
@@ -37,7 +36,6 @@
         android:layout_width="wrap_content"
         android:layout_below="@+id/midi_seek_bar"
         android:layout_alignParentLeft="true"
-        android:onClick="btnStop"
         android:background="@drawable/button_stop_layout"/>
    
 
