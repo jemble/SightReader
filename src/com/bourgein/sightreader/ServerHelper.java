@@ -154,7 +154,7 @@ public class ServerHelper {
 			
 			Intent midiIntent = new Intent(context,MidiPlayerActivity.class);
 			midiIntent.putExtra(LOADING_FROM_SERVER, false);
-			midiIntent.putExtra(SetSongDetailsActivity.SONG_PARCEL, song);
+			midiIntent.putExtra(Song.SONG_PARCEL, song);
 			midiIntent.putExtra(CUR_STATUS, curStatus);
 			midiIntent.putExtra(LOADING_FROM_NOTICATION, true);
 			PendingIntent midiPendingIntent = PendingIntent.getActivity(context, 0, midiIntent, PendingIntent.FLAG_CANCEL_CURRENT);
@@ -216,6 +216,4 @@ public class ServerHelper {
         mediaStream.write(byteArray);
         mediaStream.close();
 	}
-
-	
 }

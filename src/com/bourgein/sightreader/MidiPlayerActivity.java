@@ -41,7 +41,7 @@ public class MidiPlayerActivity extends Activity implements SeekBar.OnSeekBarCha
 	
 	public void init(){
 		Bundle bundle = getIntent().getExtras();
-		song = bundle.getParcelable(SetSongDetailsActivity.SONG_PARCEL);
+		song = bundle.getParcelable(Song.SONG_PARCEL);
 		boolean isLoadingFromServer = bundle.getBoolean(ServerHelper.LOADING_FROM_SERVER);
 		int curStatus = bundle.getInt(ServerHelper.CUR_STATUS);
 		boolean isLoadingFromNotification = bundle.getBoolean(ServerHelper.LOADING_FROM_NOTICATION);

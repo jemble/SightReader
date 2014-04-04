@@ -26,7 +26,7 @@ public class CapturePictureActivity extends Activity implements SurfaceHolder.Ca
 		setContentView(R.layout.activity_capture_picture);
 		
 		Bundle bundle = getIntent().getExtras();
-		song = bundle.getParcelable(SetSongDetailsActivity.SONG_PARCEL);
+		song = bundle.getParcelable(Song.SONG_PARCEL);
 		
 		SurfaceView surface = (SurfaceView)findViewById(R.id.capPic_surface_preview);
         SurfaceHolder holder = surface.getHolder();

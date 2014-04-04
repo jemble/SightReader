@@ -45,7 +45,7 @@ public class PhotoHandler implements PictureCallback {
 			return;
 		}
 		Intent prevIntent = new Intent(context,FullPhotoPreviewActivity.class);
-		prevIntent.putExtra(SetSongDetailsActivity.SONG_PARCEL, song);
+		prevIntent.putExtra(Song.SONG_PARCEL, song);
 		context.startActivity(prevIntent);
 	}
 	

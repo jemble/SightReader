@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 public class Song implements Parcelable {
 
+	public static final String SONG_PARCEL = "SONG_PARCEL";
+	
 	String name;
 	int tempo;
 	String fileName;

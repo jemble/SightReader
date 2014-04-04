@@ -17,8 +17,6 @@ public class SetSongDetailsActivity extends Activity {
 	private EditText editName;
 	private EditText editTempo;
 	
-	public static final String SONG_PARCEL = "SONG_PARCEL";
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -62,7 +60,7 @@ public class SetSongDetailsActivity extends Activity {
 		if(checkFormValues()){
 			Song song = new Song(getInputValues(editName), Integer.parseInt(getInputValues(editTempo)));
 			Intent capturePicIntent = new Intent(getApplicationContext(),CapturePictureActivity.class);
-			capturePicIntent.putExtra(SONG_PARCEL, song);
+			capturePicIntent.putExtra(Song.SONG_PARCEL, song);
 			startActivity(capturePicIntent);
 		}
 		else{

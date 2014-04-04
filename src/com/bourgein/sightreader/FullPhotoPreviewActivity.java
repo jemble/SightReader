@@ -43,7 +43,7 @@ public class FullPhotoPreviewActivity extends Activity implements ResultsListene
 		
 		cropOverlay = (CropOverlayView)findViewById(R.id.fullphoto_crop_photo_preview);
 		Bundle bundle = getIntent().getExtras();
-		song = bundle.getParcelable(SetSongDetailsActivity.SONG_PARCEL);
+		song = bundle.getParcelable(Song.SONG_PARCEL);
 		
 		btnCropOrange = (ImageButton)findViewById(R.id.fullphoto_btn_crop_orange);
 		btnCropGreen = (ImageButton)findViewById(R.id.fullphoto_btn_crop_green);
@@ -186,7 +186,7 @@ public class FullPhotoPreviewActivity extends Activity implements ResultsListene
 		File file = new File(song.getImageFileName());
 		file.delete();
 		Intent camera_intent = new Intent(getApplicationContext(),CapturePictureActivity.class);
-		camera_intent.putExtra(SetSongDetailsActivity.SONG_PARCEL, song);
+		camera_intent.putExtra(Song.SONG_PARCEL, song);
 		startActivity(camera_intent);
 	}
 	
@@ -239,7 +239,7 @@ public class FullPhotoPreviewActivity extends Activity implements ResultsListene
 			progressDialog.dismiss();
 		}
 		Intent midiIntent = new Intent(getApplicationContext(),MidiPlayerActivity.class);
-		midiIntent.putExtra(SetSongDetailsActivity.SONG_PARCEL, song);
+		midiIntent.putExtra(Song.SONG_PARCEL, song);
 		midiIntent.putExtra(ServerHelper.CUR_STATUS, status);
 		startActivity(midiIntent);
 		
