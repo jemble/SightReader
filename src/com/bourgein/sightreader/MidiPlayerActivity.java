@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,8 +20,8 @@ import android.widget.Toast;
 public class MidiPlayerActivity extends Activity implements ResultsListener, SeekBar.OnSeekBarChangeListener {
 
 	private TextView txtViewName;
-	private Button btnStart;
-	private Button btnStop;
+	private ImageButton btnStart;
+	private ImageButton btnStop;
 	private SeekBar seekBar;
 	private Handler mHandler;
 	private MediaPlayer mediaPlayer;
@@ -39,8 +40,8 @@ public class MidiPlayerActivity extends Activity implements ResultsListener, See
 		boolean isLoadingFromServer = bundle.getBoolean(ServerHelper.LOADING_FROM_SERVER);
 		int curStatus = bundle.getInt(ServerHelper.CUR_STATUS);
 		
-		btnStart = (Button)findViewById(R.id.midi_btn_play);
-		btnStop = (Button)findViewById(R.id.midi_btn_stop);
+		btnStart = (ImageButton)findViewById(R.id.midi_btn_play);
+		btnStop = (ImageButton)findViewById(R.id.midi_btn_stop);
 		txtViewName = (TextView)findViewById(R.id.midi_text_name);
 		seekBar = (SeekBar)findViewById(R.id.midi_seek_bar);
 		

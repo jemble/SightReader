@@ -11,49 +11,54 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
     
-    <Button
+    <ImageButton
         android:id="@+id/fullphoto_btn_trash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:background="@drawable/button_trash_layout"
+        android:background="@null"
+        android:src="@drawable/button_trash_layout"
         android:onClick="deletePhoto"/>
     
-    <Button
+    <ImageButton
         android:id="@+id/fullphoto_btn_stop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:background="@drawable/button_stop_layout"
+        android:background="@null"
+        android:src="@drawable/button_stop_layout"
         android:onClick="stopCropping"/>
 
-    <Button
+    <ImageButton
         android:id="@+id/fullphoto_btn_crop_orange"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/button_crop_layout"
-        android:onClick="startCropping"/>
+        android:background="@null"
+        android:src="@drawable/button_crop_layout"
+        android:onClick="startCropping" />
     
-    <Button
+    <ImageButton
         android:id="@+id/fullphoto_btn_crop_green"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:background="@drawable/button_crop_green_layout"
+        android:background="@null"
+        android:src="@drawable/button_crop_green_layout"
         android:onClick="cropPhoto"/>
     
-    <Button
+    <ImageButton
         android:id="@+id/fullphoto_btn_music"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:onClick="uploadPhoto"
-        android:background="@drawable/button_music_layout"/>
+        android:background="@null"
+        android:src="@drawable/button_music_layout"/>
 
 </RelativeLayout>

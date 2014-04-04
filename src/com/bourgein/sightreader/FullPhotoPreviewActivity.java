@@ -19,6 +19,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -26,7 +27,7 @@ public class FullPhotoPreviewActivity extends Activity {
 
 	private CropOverlayView cropOverlay;
 	private Song song;
-	private Button btnCropOrange, btnCropGreen, btnStop, btnMusic, btnTrash; 
+	private ImageButton btnCropOrange, btnCropGreen, btnStop, btnMusic, btnTrash; 
 	private float x1,x2,y1,y2;
 	private float imgHeight, imgWidth;
 	private boolean isInTopLeft = false;
@@ -42,11 +43,11 @@ public class FullPhotoPreviewActivity extends Activity {
 		Bundle bundle = getIntent().getExtras();
 		song = bundle.getParcelable(SetSongDetailsActivity.SONG_PARCEL);
 		
-		btnCropOrange = (Button)findViewById(R.id.fullphoto_btn_crop_orange);
-		btnCropGreen = (Button)findViewById(R.id.fullphoto_btn_crop_green);
-		btnStop = (Button)findViewById(R.id.fullphoto_btn_stop);
-		btnMusic = (Button)findViewById(R.id.fullphoto_btn_music);
-		btnTrash = (Button)findViewById(R.id.fullphoto_btn_trash);
+		btnCropOrange = (ImageButton)findViewById(R.id.fullphoto_btn_crop_orange);
+		btnCropGreen = (ImageButton)findViewById(R.id.fullphoto_btn_crop_green);
+		btnStop = (ImageButton)findViewById(R.id.fullphoto_btn_stop);
+		btnMusic = (ImageButton)findViewById(R.id.fullphoto_btn_music);
+		btnTrash = (ImageButton)findViewById(R.id.fullphoto_btn_trash);
 		
 		btnCropGreen.setVisibility(View.INVISIBLE);
 		btnStop.setVisibility(View.INVISIBLE);

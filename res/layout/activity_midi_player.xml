@@ -23,22 +23,24 @@
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="30dp" />
      
-     <Button 
+     <ImageButton 
         android:id="@+id/midi_btn_play"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_below="@+id/midi_seek_bar"
         android:layout_alignParentRight="true"
         android:onClick="btnPlay"
-        android:background="@drawable/button_play_layout"/>
-     <Button 
+        android:background="@null"
+        android:src="@drawable/button_play_layout"/>
+     <ImageButton 
         android:id="@+id/midi_btn_stop"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_below="@+id/midi_seek_bar"
         android:layout_alignParentLeft="true"
         android:onClick="btnStop"
-        android:background="@drawable/button_stop_layout"/>
+        android:background="@null"
+        android:src="@drawable/button_stop_layout"/>
    
 
 </RelativeLayout>
