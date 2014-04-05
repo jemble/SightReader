@@ -29,7 +29,8 @@ public class ServerHelper {
 	public static final String LOADING_FROM_SERVER = "LOADING_FROM_SERVER"; 
 	public static final String CUR_STATUS = "CUR STATUS";
 	public static final String LOADING_FROM_NOTICATION = "LOADING_FROM_NOTIFICATION";
-	private static final String SERVER_ADD = "54.229.110.104";
+//	private static final String SERVER_ADD = "54.229.110.104";
+	private static final String SERVER_ADD = "161.73.66.19";
 	private static final int SERVER_PORT = 1238;
 	public static final int STATUS_OK = 100;
 	public static final int STATUS_AUDIVERIS_PROBLEM = 101;

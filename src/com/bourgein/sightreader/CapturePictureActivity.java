@@ -1,6 +1,7 @@
 package com.bourgein.sightreader;
 
 import java.io.IOException;
+import java.util.List;
 
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
@@ -55,7 +56,17 @@ public class CapturePictureActivity extends Activity implements SurfaceHolder.Ca
 	    		cam.setDisplayOrientation(90);
 	    		Camera.Parameters cParam = cam.getParameters();
 	    		cParam.setRotation(90);
-	    		cParam.set("jpeg-quality", 100);
+	    		cParam.setJpegQuality(100);
+	    		cParam.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
+	    		cParam.setWhiteBalance(Camera.Parameters.WHITE_BALANCE_AUTO);
+	    		List<String> colorEffects = cParam.getSupportedColorEffects();
+	    		for(String s : colorEffects){
+	    			if(s.equalsIgnoreCase(Camera.Parameters.EFFECT_MONO)){
+	    				Log.i("JEM","hs mono");
+	    				cParam.setColorEffect(Camera.Parameters.EFFECT_MONO);
+	    			}
+	    		}
+	    		
 	    			
 	    		cam.setParameters(cParam);
 	    		
