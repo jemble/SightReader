@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -24,7 +25,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-public class FullPhotoPreviewActivity extends Activity implements ResultsListener{
+public class FullPhotoPreviewActivity extends MenuDefiner implements ResultsListener{
 
 	private CropOverlayView cropOverlay;
 	private Song song;
@@ -218,18 +219,12 @@ public class FullPhotoPreviewActivity extends Activity implements ResultsListene
 	}
 	
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.full_photo_preview, menu);
-		return true;
-	}
-
-	@Override
 	public void onServerStart() {
 			progressDialog= new ProgressDialog(this);
 			progressDialog.setCancelable(false);
 			progressDialog.setMessage("Getting midi ...");
 			progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+			progressDialog.setCanceledOnTouchOutside(false);
 			progressDialog.show();
 	}
 

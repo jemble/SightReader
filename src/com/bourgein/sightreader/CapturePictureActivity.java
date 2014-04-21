@@ -16,7 +16,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Toast;
 
-public class CapturePictureActivity extends Activity implements SurfaceHolder.Callback{
+public class CapturePictureActivity extends MenuDefiner implements SurfaceHolder.Callback{
 	
 	private Camera cam;
 	private Song song;
@@ -119,13 +119,6 @@ public class CapturePictureActivity extends Activity implements SurfaceHolder.Ca
     	super.onResume();
     	hasOpenedCamSafely(findRearFacingCamera());
     }
-    
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.capture_picture, menu);
-		return true;
-	}
 
 	/******************SURFACEHOLDER SPECIFIC******************************/
 	@Override

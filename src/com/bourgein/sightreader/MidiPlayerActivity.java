@@ -1,5 +1,7 @@
 package com.bourgein.sightreader;
 
+import java.io.IOException;
+
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -17,7 +19,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MidiPlayerActivity extends Activity implements SeekBar.OnSeekBarChangeListener {
+public class MidiPlayerActivity extends MenuDefiner implements SeekBar.OnSeekBarChangeListener {
 
 	private TextView txtViewName;
 	private ImageButton btnStart;
@@ -89,14 +91,12 @@ public class MidiPlayerActivity extends Activity implements SeekBar.OnSeekBarCha
 				@Override
 				public void onClick(View v) {
 					try{
-						mediaPlayer.start();
-						seekBar.setProgress(0);
-						int songLength = mediaPlayer.getDuration()/1000;
-						seekBar.setMax(songLength);
-						updateProgressBar();
+						playMidi();
 					}
 					catch(IllegalStateException ex){
 						Log.i("JEM","can't play audio: "+ex.getMessage());
+					} catch (IOException e) {
+						Log.i("JEM","can't prepare audio: "+e.getMessage());
 					}
 					
 				}
@@ -107,7 +107,7 @@ public class MidiPlayerActivity extends Activity implements SeekBar.OnSeekBarCha
 				@Override
 				public void onClick(View v) {
 					try{
-						mediaPlayer.stop();
+						mediaPlayer.pause();
 					}
 					catch(IllegalStateException ex){
 						Log.i("JEM","can't stop audio: "+ex.getMessage());
@@ -118,6 +118,13 @@ public class MidiPlayerActivity extends Activity implements SeekBar.OnSeekBarCha
 		}
 	}
 	
+	private void playMidi() throws IllegalStateException, IOException{
+		mediaPlayer.start();
+		seekBar.setProgress(0);
+		int songLength = mediaPlayer.getDuration()/1000;
+		seekBar.setMax(songLength);
+		updateProgressBar();
+	}
 	
 	protected void updateProgressBar() {
 		mHandler.postDelayed(mUpdate, 100);
@@ -148,13 +155,6 @@ public class MidiPlayerActivity extends Activity implements SeekBar.OnSeekBarCha
 		}
 	}
 	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.midi_player, menu);
-		return true;
-	}
-
 	@Override
 	public void onProgressChanged(SeekBar seekBar, int progress,
 			boolean fromUser) {

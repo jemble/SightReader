@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class SetSongDetailsActivity extends Activity {
+public class SetSongDetailsActivity extends MenuDefiner {
 
 	private Button btnCamera;
 	private EditText editName;
@@ -66,13 +66,6 @@ public class SetSongDetailsActivity extends Activity {
 		else{
 			Toast.makeText(getApplicationContext(), "please enter all details correctly", Toast.LENGTH_LONG).show();
 		}
-	}
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.set_song_details, menu);
-		return true;
 	}
 
 }
