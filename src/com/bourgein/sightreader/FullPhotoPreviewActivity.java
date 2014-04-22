@@ -99,13 +99,34 @@ public class FullPhotoPreviewActivity extends MenuDefiner implements ResultsList
 						y2 = event.getY();
 						if(isInTopLeft){
 //							Log.i("JEM","moving in top left");
-							cropOverlay.x1 = x2;
-							cropOverlay.y1 = y2;
+							if(x2 < cropOverlay.x2-35){
+								cropOverlay.x1 = x2;
+							}
+							else{
+								cropOverlay.x1 = cropOverlay.x2 - 36;
+							}
+							if(y2 < cropOverlay.y2-35){
+								cropOverlay.y1 = y2;
+							}
+							else{
+								cropOverlay.y1 = cropOverlay.y2 - 36;
+							}
 						}
 						else if(isInBottomRight){
 //							Log.i("JEM","moving in bottom right");
-							cropOverlay.x2 = x2;
-							cropOverlay.y2 = y2;
+							
+							if(x2 > cropOverlay.x1+35){
+								cropOverlay.x2 = x2;
+							}
+							else{
+								cropOverlay.x2 = cropOverlay.x1 + 36;
+							}
+							if(y2 > cropOverlay.y1+35){
+								cropOverlay.y2 = y2;
+							}
+							else{
+								cropOverlay.y2 = cropOverlay.y1 + 36;
+							}							
 						}
 						else{
 							cropOverlay.x1 = x1;
@@ -116,6 +137,10 @@ public class FullPhotoPreviewActivity extends MenuDefiner implements ResultsList
 						cropOverlay.invalidate();
 						break;
 					case(MotionEvent.ACTION_UP):
+//						if(cropOverlay.x1 > (cropOverlay.x2 - 35)){
+//							Log.i("JEM","is up set to36");
+//							cropOverlay.x1 = (cropOverlay.x2-36);
+//						}
 						isInBottomRight = false;
 						isInTopLeft = false;
 					}

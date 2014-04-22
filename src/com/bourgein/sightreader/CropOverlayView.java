@@ -39,7 +39,7 @@ public class CropOverlayView extends ImageView {
 	@Override
 	protected void onDraw(Canvas canvas){
 		super.onDraw(canvas);
-		Log.i("JEM","crop pos: "+x1+" "+y1+" "+x2+" "+y2);
+//		Log.i("JEM","crop pos: "+x1+" "+y1+" "+x2+" "+y2);
 		if(isDrawingCropBox){
 			canvas.drawRect(x1,y1,x2,y2, paint);
 			topLeftHandle.set(x1-HANDLE_SIZE,y1-HANDLE_SIZE,x1+HANDLE_SIZE,y1+HANDLE_SIZE);
