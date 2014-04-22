@@ -15,6 +15,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Paint;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MotionEvent;
@@ -54,6 +58,10 @@ public class FullPhotoPreviewActivity extends MenuDefiner implements ResultsList
 		
 		btnCropGreen.setVisibility(View.INVISIBLE);
 		btnStop.setVisibility(View.INVISIBLE);
+		
+		if(origBmp != null){
+			origBmp.recycle();
+		}
 		
 		origBmp = BitmapFactory.decodeFile(song.getImageFileName());
 		
@@ -193,10 +201,6 @@ public class FullPhotoPreviewActivity extends MenuDefiner implements ResultsList
 	
 	public void uploadPhoto(View view){
 		if(isDataConnection()){
-//			Intent midiIntent = new Intent(getApplicationContext(), MidiPlayerActivity.class);
-//			midiIntent.putExtra(SetSongDetailsActivity.SONG_PARCEL, song);
-//			midiIntent.putExtra(ServerHelper.LOADING_FROM_SERVER, true);
-//			startActivity(midiIntent);
 			ServerHelper helper = new ServerHelper(this,song,this);
 			helper.startComms();
 		}
@@ -210,8 +214,9 @@ public class FullPhotoPreviewActivity extends MenuDefiner implements ResultsList
 		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 		return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
 	}
-	
+		
 	private void writeImageToFile(Bitmap bmp) throws IOException{
+		
 		File pictureFile = new File(song.getImageFileName());
 		FileOutputStream fos = new FileOutputStream(pictureFile);
 		bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);

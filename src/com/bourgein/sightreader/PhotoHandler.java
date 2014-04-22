@@ -49,6 +49,8 @@ public class PhotoHandler implements PictureCallback {
 		context.startActivity(prevIntent);
 	}
 	
+	
+	
 	private File getExternalDir(){
 		File sdDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 		return new File(sdDir,"SightReader");

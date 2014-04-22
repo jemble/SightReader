@@ -2,6 +2,10 @@ package com.bourgein.sightreader;
 
 import java.io.IOException;
 
+import android.R.color;
+import android.graphics.Color;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.PorterDuff;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -28,9 +32,7 @@ public class MidiPlayerActivity extends MenuDefiner implements SeekBar.OnSeekBar
 	private Handler mHandler;
 	private MediaPlayer mediaPlayer;
 	private Uri midiUri;
-	private Song song;
-	private ProgressDialog progressDialog;
-	
+	private Song song;	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,8 @@ public class MidiPlayerActivity extends MenuDefiner implements SeekBar.OnSeekBar
 		btnStop = (ImageButton)findViewById(R.id.midi_btn_stop);
 		txtViewName = (TextView)findViewById(R.id.midi_text_name);
 		seekBar = (SeekBar)findViewById(R.id.midi_seek_bar);
+		
+		seekBar.getProgressDrawable().setColorFilter(new PorterDuffColorFilter(Color.BLACK, PorterDuff.Mode.MULTIPLY));
 		
 		mHandler = new Handler();
 		if(checkServerStatus(curStatus)){

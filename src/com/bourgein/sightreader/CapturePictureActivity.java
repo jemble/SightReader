@@ -59,13 +59,13 @@ public class CapturePictureActivity extends MenuDefiner implements SurfaceHolder
 	    		cParam.setJpegQuality(100);
 	    		cParam.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
 	    		cParam.setWhiteBalance(Camera.Parameters.WHITE_BALANCE_AUTO);
-	    		List<String> colorEffects = cParam.getSupportedColorEffects();
-	    		for(String s : colorEffects){
-	    			if(s.equalsIgnoreCase(Camera.Parameters.EFFECT_MONO)){
-	    				Log.i("JEM","hs mono");
-	    				cParam.setColorEffect(Camera.Parameters.EFFECT_MONO);
-	    			}
-	    		}
+//	    		List<String> colorEffects = cParam.getSupportedColorEffects();
+//	    		for(String s : colorEffects){
+//	    			if(s.equalsIgnoreCase(Camera.Parameters.EFFECT_MONO)){
+//	    				Log.i("JEM","hs mono");
+//	    				cParam.setColorEffect(Camera.Parameters.EFFECT_MONO);
+//	    			}
+//	    		}
 	    		
 	    			
 	    		cam.setParameters(cParam);
