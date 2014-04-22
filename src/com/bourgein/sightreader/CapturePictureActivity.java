@@ -8,6 +8,7 @@ import android.hardware.Camera.CameraInfo;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.util.Log;
 import android.view.Menu;
@@ -119,6 +120,12 @@ public class CapturePictureActivity extends MenuDefiner implements SurfaceHolder
     	super.onResume();
     	hasOpenedCamSafely(findRearFacingCamera());
     }
+    
+    @Override
+	public void onBackPressed() {
+	   Intent intent = new Intent(getApplicationContext(),SetSongDetailsActivity.class);
+	   startActivity(intent);
+	 }
 
 	/******************SURFACEHOLDER SPECIFIC******************************/
 	@Override
